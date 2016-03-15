@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0"
+	xsi:schemaLocation="
+             http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+             http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+	<camelContext id="proc-executor-main-context" xmlns="http://camel.apache.org/schema/blueprint">
+		<dataFormats>
+			<json id="program-marshaller" library="Jackson"
+				unmarshalTypeName="com.rsa.proc.dto.Program" />
+			<json id="execution-marshaller" library="Jackson"
+				unmarshalTypeName="com.rsa.proc.dto.Execution" />
+		</dataFormats>
+		<route id="jms-file">
+			<from uri="activemq:{{inQueueDefinition}}" />
+			<unmarshal ref="program-marshaller" />
+			<to uri="bean:proC-executor" />
+			<marshal ref="execution-marshaller" />
+			<convertBodyTo type="String" />
+			<setHeader headerName="JMSType">
+				<constant>Text</constant>
+			</setHeader>
+			<to uri="activemq:{{outQueueDefinition}}" />
+		</route>
+	</camelContext>
+
+
+</blueprint>
