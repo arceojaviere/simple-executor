@@ -21,7 +21,7 @@ import com.rsa.proc.dto.Execution;
 import com.rsa.proc.dto.Program;
 import com.rsa.proc.streams.AccumulatingLogOutputStream;
 
-public class ProCExecutorCommonsExec {
+public class ProCExecutorCommonsExec implements ProgramExecutor {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProCExecutorCommonsExec.class);
 	
@@ -35,6 +35,10 @@ public class ProCExecutorCommonsExec {
 		this.bufferSize = 10240;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.rsa.proc.ProgramExecutor#execute(com.rsa.proc.dto.Program)
+	 */
+	@Override
 	public Execution execute(Program program) {
 		ProgramConfiguration programConfiguration;
 		Execution result = new Execution();
@@ -158,6 +162,10 @@ public class ProCExecutorCommonsExec {
 		return configurationManager;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.rsa.proc.ProgramExecutor#setConfigurationManager(com.rsa.proc.config.ConfigurationManager)
+	 */
+	@Override
 	public void setConfigurationManager(ConfigurationManager configurationManager) {
 		this.configurationManager = configurationManager;
 	}
@@ -174,6 +182,10 @@ public class ProCExecutorCommonsExec {
 		return tempDir;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.rsa.proc.ProgramExecutor#setTempDir(java.lang.String)
+	 */
+	@Override
 	public void setTempDir(String tempDir) {
 		this.tempDir = tempDir;
 	}

@@ -9,12 +9,19 @@
 	<bean id="configManager" class="com.rsa.proc.config.impl.ConfigurationManagerPropertiesImpl" scope="singleton">
 		<argument value="${programPropertiesPath}" />
 	</bean>
-	
     <bean id="proC-executor"
-    		class="com.rsa.proc.ProCExecutorCommonsExec">
+    		class="com.rsa.proc.ProCExecutorCommonsExec" scope="singleton">
 		<property name="tempDir" value="${programTempDir}"/>
 		<property name="configurationManager" ref="configManager" />
 		<property name="bufferSize" value="${responseBufferSize}" />
+	</bean>
+	
+	<bean id="buffer-controller" class="com.rsa.proc.buffer.ExecutionBufferControllerMapImpl" scope="singleton">
+    </bean>
+	
+	<bean id="buffered-executor" class="com.rsa.proc.buffer.ExecutionBuffer">
+		<property name="controller" ref="buffer-controller" />
+		<property name="executor" ref="proC-executor" />
 	</bean>
 
 

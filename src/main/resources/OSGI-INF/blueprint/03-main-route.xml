@@ -17,13 +17,32 @@
 		<route id="jms-file">
 			<from uri="activemq:{{inQueueDefinition}}" />
 			<unmarshal ref="program-marshaller" />
-			<to uri="bean:proC-executor" />
-			<marshal ref="execution-marshaller" />
-			<convertBodyTo type="String" />
-			<setHeader headerName="JMSType">
-				<constant>Text</constant>
-			</setHeader>
-			<to uri="activemq:{{outQueueDefinition}}" />
+			<to uri="bean:buffer-controller?method=addExecution(${header.JMSCorrelationID}, ${body})"/>
+			<choice>
+				<when>
+					<simple>${body.newExecution}</simple>
+					<setBody>
+						<simple>${body.program}</simple>
+					</setBody>
+					<to uri="bean:buffered-executor" />
+					<setHeader headerName="JMSType">
+							<constant>Text</constant>
+						</setHeader>
+					<split>
+						<simple>${body}</simple>
+						
+						<setHeader headerName="JMSCorrelationID">
+							<simple>${body.destinationId}</simple>
+						</setHeader>
+						<setBody>
+							<simple>${body.executionResult}</simple>
+						</setBody>
+						<marshal ref="execution-marshaller" />
+						<convertBodyTo type="String" />
+						<to uri="activemq:{{outQueueDefinition}}" />
+					</split>
+				</when>
+			</choice>
 		</route>
 	</camelContext>
 

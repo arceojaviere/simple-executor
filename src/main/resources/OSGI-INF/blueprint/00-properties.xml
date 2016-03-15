@@ -13,7 +13,7 @@
 			<cm:property name="responseBufferSize" value="10240"/>
 			<cm:property name="brokerhost" value="localhost"/>
 			<cm:property name="brokerPort" value="61616"/>
-			<cm:property name="inQueueDefinition" value="royalsun.proc_execution.in.queue?username=admin&amp;password=admin"/>
+			<cm:property name="inQueueDefinition" value="royalsun.proc_execution.in.queue?username=admin&amp;password=admin&amp;concurrentConsumers=20"/>
 			<cm:property name="outQueueDefinition" value="royalsun.proc_execution.out.queue?username=admin&amp;password=admin"/>
 		</cm:default-properties>
 	</cm:property-placeholder>
