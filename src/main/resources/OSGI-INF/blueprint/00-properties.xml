@@ -6,7 +6,7 @@
              http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
              http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 
-    <cm:property-placeholder id="executionProperties" persistent-id="com.rsa.proc.config">
+    <cm:property-placeholder id="executionProperties" persistent-id="com.rsa.execution.config">
 		<cm:default-properties>
 			<cm:property name="programPropertiesPath" value="/root/program.properties"/>
 			<cm:property name="programTempDir" value="/tmp/procDir"/>

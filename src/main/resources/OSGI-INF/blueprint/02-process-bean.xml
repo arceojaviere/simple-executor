@@ -6,20 +6,20 @@
              http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
              http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 	
-	<bean id="configManager" class="com.rsa.proc.config.impl.ConfigurationManagerPropertiesImpl" scope="singleton">
+	<bean id="configManager" class="com.rsa.execution.config.impl.ConfigurationManagerPropertiesImpl" scope="singleton">
 		<argument value="${programPropertiesPath}" />
 	</bean>
     <bean id="proC-executor"
-    		class="com.rsa.proc.ProCExecutorCommonsExec" scope="singleton">
+    		class="com.rsa.execution.ProCExecutorCommonsExec" scope="singleton">
 		<property name="tempDir" value="${programTempDir}"/>
 		<property name="configurationManager" ref="configManager" />
 		<property name="bufferSize" value="${responseBufferSize}" />
 	</bean>
 	
-	<bean id="buffer-controller" class="com.rsa.proc.buffer.ExecutionBufferControllerMapImpl" scope="singleton">
+	<bean id="buffer-controller" class="com.rsa.execution.buffer.ExecutionBufferControllerMapImpl" scope="singleton">
     </bean>
 	
-	<bean id="buffered-executor" class="com.rsa.proc.buffer.ExecutionBuffer">
+	<bean id="buffered-executor" class="com.rsa.execution.buffer.ExecutionBuffer">
 		<property name="controller" ref="buffer-controller" />
 		<property name="executor" ref="proC-executor" />
 	</bean>

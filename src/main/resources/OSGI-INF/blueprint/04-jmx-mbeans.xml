@@ -6,14 +6,14 @@
              http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
              http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 	
-	<bean id="configurationReloaderMBean" class="com.rsa.proc.jmx.ConfigReloader">
+	<bean id="configurationReloaderMBean" class="com.rsa.execution.jmx.ConfigReloader">
 		<property name="manager" ref="configManager" />
     </bean>
 
     <bean id="mbeanRegistrer" class="org.apache.karaf.management.MBeanRegistrer" init-method="init">
         <property name="mbeans">
             <map>
-                <entry value="com.rsa.proc:type=service,name=ConfigurationReloaderMBean" key-ref="configurationReloaderMBean"/>
+                <entry value="com.rsa.execution:type=service,name=ConfigurationReloaderMBean" key-ref="configurationReloaderMBean"/>
             </map>
         </property>
     </bean>

@@ -10,9 +10,9 @@
 	<camelContext id="proc-executor-main-context" xmlns="http://camel.apache.org/schema/blueprint">
 		<dataFormats>
 			<json id="program-marshaller" library="Jackson"
-				unmarshalTypeName="com.rsa.proc.dto.Program" />
+				unmarshalTypeName="com.rsa.execution.dto.Program" />
 			<json id="execution-marshaller" library="Jackson"
-				unmarshalTypeName="com.rsa.proc.dto.Execution" />
+				unmarshalTypeName="com.rsa.execution.dto.Execution" />
 		</dataFormats>
 		<route id="jms-file">
 			<from uri="activemq:{{inQueueDefinition}}" />
